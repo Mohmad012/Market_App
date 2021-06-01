@@ -12,8 +12,6 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY)
 
 const endpointSecret = process.env.STRIPE_SIGNING_SECRET
 
-const endpointSecretNew = endpointSecret.toString()
-
 const fulfillOrder = async (session) => {
 	// console.log('Fulfilling order' , session)
 
@@ -46,7 +44,7 @@ export default async (req , res) => {
 
 		// Verify that the EVENT Posted came from Stripe
 		try{
-			event = stripe.webhooks.constructEvent(payload , sig , endpointSecretNew);
+			event = stripe.webhooks.constructEvent(payload , sig , endpointSecret);
 
 		} catch (err){
 			console.log("ERROR" , err.message);
