@@ -5,6 +5,7 @@ import Currency from 'react-currency-formatter'
 import { useDispatch } from 'react-redux'
 import { addToBasket } from "../slices/basketSlice";
 import Aos from 'aos'
+import { useSession } from 'next-auth/client'
 
 
 const MAX_RATING = 5
@@ -17,6 +18,8 @@ const Product = ({id , title , price , description, category , image , index}) =
 	},[])
 
 	const dispatch = useDispatch()
+
+	const [session] = useSession()
 
 	const [rating] = useState(
 		Math.floor(Math.random() * (MAX_RATING - MIN_RATING + 1)) + MIN_RATING
@@ -71,7 +74,7 @@ const Product = ({id , title , price , description, category , image , index}) =
 				</div>
 			)}
 
-			<button onClick={addItemToBasket} className="mt-auto button ">Add To Basket</button>
+			<button disabled={!session} onClick={addItemToBasket} className={`button mt-auto ${!session && "mt-auto from-gray-300 to-gray-500 border-gray-200 text-gray-300 cursor-not-allowed"}`}>{!session ? "Sign In To Add To Basket" : "Add To Basket"}</button>
 		</div>
 	)
 }
