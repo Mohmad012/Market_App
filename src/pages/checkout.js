@@ -92,7 +92,7 @@ const Checkout = () => {
 								onClick={createCheckoutSession}
 								className="button mt-2"
 							>
-								"Proceed To Checkout"
+								Proceed To Checkout
 							</button>
 						</>
 					)}
